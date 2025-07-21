@@ -1,4 +1,4 @@
-package com.balai.user.model.dto;
+package com.balai.user.model.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

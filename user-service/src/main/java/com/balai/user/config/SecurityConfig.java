@@ -1,5 +1,6 @@
 package com.balai.user.config;
 
+import com.balai.user.model.service.CustomUserDetailsService;
 import com.balai.user.model.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final UserService userService;
+    private final CustomUserDetailsService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

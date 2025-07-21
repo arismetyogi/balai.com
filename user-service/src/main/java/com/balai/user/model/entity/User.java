@@ -2,9 +2,7 @@ package com.balai.user.model.entity;
 
 import com.balai.user.model.enums.Role;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +14,9 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "users")
-@RequiredArgsConstructor
-public class User extends Auditable implements UserDetails {
+@AllArgsConstructor
+@NoArgsConstructor
+public class User extends BaseEntity implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String username;
