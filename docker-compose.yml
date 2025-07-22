@@ -13,17 +13,17 @@ services:
       - /d/postgres_docker_data:/var/lib/postgresql/data
 
   # PostgreSQL Database for Inventory Service
-#  inventory-db:
-#    container_name: inventory-db-pgsql
-#    image: postgres
-#    environment:
-#      POSTGRES_DB: inventorydb
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: postgres
-#    ports:
-#      - "5433:5432"
-#    volumes:
-#      - /d/postgres_docker_data:/var/lib/postgresql/data
+  inventory-db:
+    container_name: inventory-db-pgsql
+    image: postgres
+    environment:
+      POSTGRES_DB: inventorydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - /d/postgres_docker_data:/var/lib/postgresql/data
 
   # PostgreSQL Database for Order Service
 #  order-db:
@@ -61,20 +61,20 @@ services:
       - redis
 
   # Inventory Service
-#  inventory-service:
-#    build:
-#      context: ./inventory-service
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8082:8082"
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://inventory-db:5432/inventorydb
-#      SPRING_DATASOURCE_USERNAME: postgres
-#      SPRING_DATASOURCE_PASSWORD: postgres
-#      USER_SERVICE_URL: http://user-service:8081
-#    depends_on:
-#      - inventory-db
-#      - user-service
+  inventory-service:
+    build:
+      context: ./inventory-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://inventory-db:5432/inventorydb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      USER_SERVICE_URL: http://user-service:8081
+    depends_on:
+      - inventory-db
+      - user-service
 
   # Order Service
 #  order-service:

@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @SpringBootApplication
 @EnableWebSecurity
 @EntityScan("com.balai.user.model.entity") // ← scan for @Entity
-@EnableJpaRepositories(basePackages = "com.balai.user.model.repository") // ← scan for your JPA repos
+@EnableJpaRepositories(basePackages = "com.balai.user.repository") // ← scan for your JPA repos
 @EnableJpaAuditing
 public class UserServiceApplication {
 

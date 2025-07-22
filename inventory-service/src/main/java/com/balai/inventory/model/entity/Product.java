@@ -20,7 +20,7 @@ public class Product extends Auditable{
     private String name;
     private String description;
     private BigDecimal price;
-    private Integer stock;
+    private Integer quantity;
     private String image;
 
     @ManyToOne
