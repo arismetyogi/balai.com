@@ -13,6 +13,7 @@ public interface ProductMapper {
     ProductDto toDto(Product product);
 
     @Mapping(target = "image", source = "image") //add mapping
+    @Mapping(target = "category", ignore = true) // handle manually in service
     Product toEntity(ProductDto productDto);
 
 }

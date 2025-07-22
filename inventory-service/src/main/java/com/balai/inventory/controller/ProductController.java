@@ -1,5 +1,6 @@
 package com.balai.inventory.controller;
 
+import com.balai.inventory.model.dto.ProductDto;
 import com.balai.inventory.model.entity.Product;
 import com.balai.inventory.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +31,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
+    @GetMapping({"/name/{name}"})
+    public ResponseEntity<Optional<Product>> getProductByName(@PathVariable String name) {
+        return ResponseEntity.ok(productService.getProductByName(name));
+    }
+
     @GetMapping({"/available"})
     public ResponseEntity<List<Product>> getAvailableProducts() {
         return ResponseEntity.ok(this.productService.getAvailableProducts());
@@ -45,14 +53,14 @@ public class ProductController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        return new ResponseEntity<>(this.productService.createProduct(product), HttpStatus.CREATED);
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto product, MultipartFile image) throws IOException {
+        return new ResponseEntity<>(this.productService.createProduct(product, image), HttpStatus.CREATED);
     }
 
     @PutMapping({"/{id}"})
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        return ResponseEntity.ok(this.productService.updateProduct(id, product));
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto, MultipartFile image) throws IOException {
+        return ResponseEntity.ok(this.productService.updateProduct(id, productDto, image));
     }
 
     @DeleteMapping({"/{id}"})
