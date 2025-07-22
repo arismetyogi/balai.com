@@ -6,12 +6,26 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ResourceAlreadyExistedException.class)
+    public ResponseEntity<Map<String, Object>> handleUserAlreadyExists(ResourceNotFoundException exception) {
+        return new ResponseEntity<>(
+                Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", HttpStatus.CONFLICT.value(),
+                        "error", "Conflict",
+                        "message", exception.getMessage()
+                ),
+                HttpStatus.CONFLICT
+        );
+    }
 
     @ExceptionHandler(value = ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(

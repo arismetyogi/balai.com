@@ -1,5 +1,6 @@
 package com.balai.user.model.service;
 
+import com.balai.user.exception.ResourceAlreadyExistedException;
 import com.balai.user.model.dto.request.LoginRequest;
 import com.balai.user.model.dto.response.AuthResponse;
 import com.balai.user.model.dto.request.RegisterRequest;
@@ -27,11 +28,11 @@ public class UserService {
 
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new ResourceAlreadyExistedException("Username already exists");
         }
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new ResourceAlreadyExistedException("Email already exists");
         }
 
         User userEntity = new User();
