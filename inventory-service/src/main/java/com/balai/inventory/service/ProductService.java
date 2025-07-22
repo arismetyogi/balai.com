@@ -19,39 +19,44 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok(productRepository.findAll());
     }
 
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
+    public ResponseEntity<Product> getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
+        return ResponseEntity.ok(product);
     }
 
-    public Optional<Product> getProductByName(String name) {
-        return productRepository.findByName(name);
+    public ResponseEntity<Product> getProductByName(String name) {
+        Product product = productRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with name " + name));
+        return ResponseEntity.ok(product);
     }
 
-    public List<Product> getAvailableProducts() {
-        return productRepository.findByQuantityGreaterThan(0);
+    public ResponseEntity<List<Product>> getAvailableProducts() {
+        return ResponseEntity.ok(productRepository.findByQuantityGreaterThan(0));
     }
 
-    public List<Product> getProductsByCategoryId(Long categoryId) {
-        return productRepository.findByCategoryId(categoryId);
+    public ResponseEntity<List<Product>> getProductsByCategoryId(Long categoryId) {
+        return ResponseEntity.ok(productRepository.findByCategoryId(categoryId));
     }
 
-    public List<Product> getProductsByCategoryName(String categoryName) {
-        return productRepository.findByCategoryName(categoryName);
+    public ResponseEntity<List<Product>> getProductsByCategoryName(String categoryName) {
+        return ResponseEntity.ok(productRepository.findByCategoryName(categoryName));
     }
 
-    public List<Product> searchProducts(String keyword) {
-        return productRepository.findByNameOrDescriptionContaining(keyword);
+    public ResponseEntity<List<Product>> searchProducts(String keyword) {
+        return ResponseEntity.ok(productRepository.findByNameOrDescriptionContaining(keyword));
     }
 
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
+    public ResponseEntity<Product> createProduct(Product product) {
+        Product newProduct = productRepository.save(product);
+        return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
     }
 
-    public Product updateProduct(Long id, Product productDetails) {
+    public ResponseEntity<Product> updateProduct(Long id, Product productDetails) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
 
@@ -62,13 +67,18 @@ public class ProductService {
         product.setCategory(productDetails.getCategory());
         product.setImage(productDetails.getImage());
 
-        return productRepository.save(product);
+        return ResponseEntity.ok(productRepository.save(product));
     }
 
-    public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id)
+    public ResponseEntity<?> deleteProduct(Long id) throws Exception {
+        productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
-        productRepository.deleteById(id);
+        try {
+            productRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Product not found with id " + id);
+        }
+        return ResponseEntity.ok("Product has been deleted");
     }
 
     public ResponseEntity<?> updateProductQuantity(Long productId, Integer quantity) {

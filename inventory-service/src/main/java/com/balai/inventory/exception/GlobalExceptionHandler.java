@@ -1,7 +1,7 @@
 package com.balai.inventory.exception;
 
-import com.balai.user.exception.ResourceAlreadyExistedException;
-import com.balai.user.exception.ResourceNotFoundException;
+import com.balai.inventory.exception.ResourceAlreadyExistedException;
+import com.balai.inventory.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
