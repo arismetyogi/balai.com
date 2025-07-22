@@ -1,4 +1,4 @@
-package com.balai.user.model.repository;
+package com.balai.user.repository;
 
 import com.balai.user.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

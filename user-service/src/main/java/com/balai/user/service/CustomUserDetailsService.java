@@ -1,6 +1,6 @@
-package com.balai.user.model.service;
+package com.balai.user.service;
 
-import com.balai.user.model.repository.UserRepository;
+import com.balai.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

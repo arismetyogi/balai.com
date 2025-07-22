@@ -2,6 +2,7 @@
   <configuration default="false" name="InventoryServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" singleton="false">
     <option name="ALTERNATIVE_JRE_PATH" value="24" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <module name="inventory-service" />
     <selectedOptions>
       <option name="environmentVariables" />
     </selectedOptions>

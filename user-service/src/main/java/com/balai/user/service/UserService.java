@@ -1,4 +1,4 @@
-package com.balai.user.model.service;
+package com.balai.user.service;
 
 import com.balai.user.exception.ResourceAlreadyExistedException;
 import com.balai.user.model.dto.request.LoginRequest;
@@ -6,7 +6,7 @@ import com.balai.user.model.dto.response.AuthResponse;
 import com.balai.user.model.dto.request.RegisterRequest;
 import com.balai.user.model.entity.User;
 import com.balai.user.model.enums.Role;
-import com.balai.user.model.repository.UserRepository;
+import com.balai.user.repository.UserRepository;
 import com.balai.user.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
