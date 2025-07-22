@@ -1,9 +1,7 @@
 package com.balai.inventory.mapper;
 
 import com.balai.inventory.model.dto.CategoryDto;
-import com.balai.inventory.model.dto.ProductDto;
 import com.balai.inventory.model.entity.Category;
-import com.balai.inventory.model.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
