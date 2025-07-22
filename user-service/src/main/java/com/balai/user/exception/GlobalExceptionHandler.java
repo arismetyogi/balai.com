@@ -15,7 +15,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceAlreadyExistedException.class)
-    public ResponseEntity<Map<String, Object>> handleUserAlreadyExists(ResourceNotFoundException exception) {
+    public ResponseEntity<Map<String, Object>> handleResourceAlreadyExists(ResourceAlreadyExistedException exception) {
         return new ResponseEntity<>(
                 Map.of(
                         "timestamp", LocalDateTime.now(),
@@ -39,5 +39,18 @@ public class GlobalExceptionHandler {
 
         // 2. Return the response
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, Object>> handleGeneric(Exception exception) {
+        return new ResponseEntity<>(
+                Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                        "error", "Internal Server Error",
+                        "message", exception.getMessage()
+                ),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
 }
