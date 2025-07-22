@@ -1,6 +1,7 @@
 package com.balai.inventory.config;
 
 import com.balai.inventory.filter.JwtAuthenticationFilter;
+import com.balai.inventory.service.UserValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +19,10 @@ import org.springframework.web.client.RestTemplate;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    @Lazy
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(UserValidationService userValidationService) {
+        return new JwtAuthenticationFilter(userValidationService);
+    }
 
     @Bean
     public RestTemplate restTemplate() {
@@ -27,7 +30,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, UserValidationService userValidationService) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
@@ -35,7 +38,7 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 );
 
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(userValidationService), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

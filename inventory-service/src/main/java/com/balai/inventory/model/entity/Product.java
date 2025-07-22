@@ -1,9 +1,6 @@
 package com.balai.inventory.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @Entity
+@Table(name = "products")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product extends Auditable{

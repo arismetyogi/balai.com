@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /d/postgres_docker_data:/var/lib/postgresql/data
+      - userdb-data:/var/lib/postgresql/data
 
   # PostgreSQL Database for Inventory Service
   inventory-db:
@@ -23,7 +23,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - /d/postgres_docker_data:/var/lib/postgresql/data
+      - inventorydb-data:/var/lib/postgresql/data
 
   # PostgreSQL Database for Order Service
 #  order-db:
@@ -36,7 +36,7 @@ services:
 #    ports:
 #      - "5434:5432"
 #    volumes:
-#      - /d/postgres_docker_data:/var/lib/postgresql/data
+#      - orderdb-data:/var/lib/postgresql/data
 
   # Redis for session management
   redis:
@@ -93,3 +93,8 @@ services:
 #      - order-db
 #      - user-service
 #      - inventory-service
+
+volumes:
+  userdb-data:
+  inventorydb-data:
+#  orderdb-data:

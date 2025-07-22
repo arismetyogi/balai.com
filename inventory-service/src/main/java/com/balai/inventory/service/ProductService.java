@@ -1,13 +1,9 @@
 package com.balai.inventory.service;
 
 import com.balai.inventory.exception.ResourceNotFoundException;
-import com.balai.inventory.model.entity.Category;
 import com.balai.inventory.model.entity.Product;
-import com.balai.inventory.repository.CategoryRepository;
 import com.balai.inventory.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +12,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
 
     public List<Product> getAllProducts() {
@@ -61,7 +56,6 @@ public class ProductService {
         product.setDescription(productDetails.getDescription());
         product.setPrice(productDetails.getPrice());
         product.setQuantity(productDetails.getQuantity());
-        product.setCategory(productDetails.getCategory());
         product.setImage(productDetails.getImage());
 
         return productRepository.save(product);
